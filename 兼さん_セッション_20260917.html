@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>兼田さん セッション 2026年9月17日</title>
+<style>
+  :root {
+    --bg: #10201a;
+    --panel: #17281f;
+    --panel-line: #2a3c30;
+    --ink: #f1ede2;
+    --ink-dim: #b9c4ba;
+    --gold: #c9a227;
+    --pitch: #4a7856;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  header {
+    margin-bottom: 40px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--panel-line);
+  }
+
+  .kicker {
+    color: var(--pitch);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+
+  .date-line {
+    color: var(--ink-dim);
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .video-shell {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 44px;
+    border: 1px solid var(--panel-line);
+  }
+
+  .video-shell iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  section {
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+    margin: 0 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h2::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--panel-line);
+  }
+
+  .highlight-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .highlight-list li {
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-left: 3px solid var(--pitch);
+    padding: 16px 18px;
+    border-radius: 4px;
+    font-size: 15.5px;
+    color: var(--ink);
+  }
+
+  .next-meeting {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-left: 3px solid var(--gold);
+    padding: 16px 18px;
+    border-radius: 4px;
+    font-size: 15.5px;
+  }
+
+  .next-meeting .label {
+    color: var(--ink-dim);
+    font-size: 13px;
+  }
+
+  .owner-block {
+    margin-bottom: 24px;
+  }
+
+  .owner-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 10px;
+  }
+
+  .action-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .action-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--ink);
+    cursor: pointer;
+    user-select: none;
+    padding: 4px 6px;
+    margin: -4px -6px;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+  }
+
+  .action-list li:hover {
+    background: rgba(255,255,255,0.03);
+  }
+
+  .checkbox {
+    position: relative;
+    flex: none;
+    width: 17px;
+    height: 17px;
+    margin-top: 3px;
+    border: 1.5px solid var(--pitch);
+    border-radius: 4px;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .action-list li.checked .checkbox {
+    background: var(--pitch);
+    border-color: var(--pitch);
+  }
+
+  .checkbox::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid var(--bg);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+  }
+
+  .action-list li.checked .checkbox::after {
+    opacity: 1;
+  }
+
+  .action-list li.checked .action-text {
+    color: var(--ink-dim);
+    text-decoration: line-through;
+  }
+
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--panel-line);
+    color: var(--ink-dim);
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="kicker">SESSION RECAP</p>
+    <h1>兼田さん セッション 2026年9月17日</h1>
+    <p class="date-line">2026年9月17日(木) 19:00〜19:49 · 兼さん</p>
+  </header>
+
+  <div class="video-shell">
+    <iframe src="https://www.youtube.com/embed/uM7_fN-czek" title="兼田さん セッション 2026年9月17日" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+
+  <section>
+    <h2>ハイライト</h2>
+    <ul class="highlight-list">
+      <li>兼田さんの登山ツアーは、数週間かけた宣伝の末、定員5名(1名オーバー)で満席に。フォロワーからの好意的なコメントも獲得した。</li>
+      <li>犬同伴希望者への対応やDMでのやり取りなど、集客の難しさを実感しつつも着実に前進したことを確認。</li>
+      <li>今後は月1回程度の開催頻度を目指し、公式LINEでの参加者管理を軸に据える方針で合意。</li>
+      <li>資格取得(2027年1月予定)後の料金改定や、参加者への写真・動画提供など、中長期のブランディング方針も整理した。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>次回ミーティング</h2>
+    <div class="next-meeting">
+      <span>9月23日(水) 19:00〜</span>
+      <span class="label">両者で設定済み</span>
+    </div>
+    <!-- 次回未定の場合はこのsection自体を削除する -->
+  </section>
+
+  <section>
+    <h2>ネクストアクション</h2>
+
+    <div class="owner-block">
+      <p class="owner-name">兼さん</p>
+      <ul class="action-list">
+        <li data-id="client-1"><span class="checkbox"></span><span class="action-text">11月ツアーに向けて、登る山と大まかな日程を早期に決定する</span></li>
+        <li data-id="client-2"><span class="checkbox"></span><span class="action-text">参加者に公式LINEへの参加を必須とする</span></li>
+        <li data-id="client-3"><span class="checkbox"></span><span class="action-text">「好評につき第二弾開催します」という形で、実績を活用したストーリーを投稿する</span></li>
+        <li data-id="client-4"><span class="checkbox"></span><span class="action-text">当日の写真・長尺動画(約3分)を後日提供することを検討し、インスタ投稿の許可を確認する</span></li>
+        <li data-id="client-5"><span class="checkbox"></span><span class="action-text">資格取得後の料金改定とツアー内容のグレードアップを検討する</span></li>
+        <li data-id="client-6"><span class="checkbox"></span><span class="action-text">購入した自撮り棒を今週中に山で試用する</span></li>
+        <li data-id="client-7"><span class="checkbox"></span><span class="action-text">岩脇山への下見を、時間が許せば再度実施する</span></li>
+      </ul>
+    </div>
+
+    <div class="owner-block">
+      <p class="owner-name">共有事項</p>
+      <ul class="action-list">
+        <li data-id="shared-1"><span class="checkbox"></span><span class="action-text">志村がヤマップのアカウントで兼田さんをフォローする(本日中)</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    ActGrit コーチングセッション記録 · 2026年9月17日実施分
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'session-recap-checks:' + document.title;
+  var state = {};
+  try {
+    state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  } catch (e) {}
+
+  var items = document.querySelectorAll('.action-list li[data-id]');
+  items.forEach(function (li) {
+    var id = li.getAttribute('data-id');
+    if (state[id]) li.classList.add('checked');
+    li.addEventListener('click', function () {
+      li.classList.toggle('checked');
+      state[id] = li.classList.contains('checked');
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>
