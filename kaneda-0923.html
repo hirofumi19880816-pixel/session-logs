@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>兼田さん セッション 9/23</title>
+<style>
+  :root {
+    --bg: #10201a;
+    --panel: #17281f;
+    --panel-line: #2a3c30;
+    --ink: #f1ede2;
+    --ink-dim: #b9c4ba;
+    --gold: #c9a227;
+    --pitch: #4a7856;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  header {
+    margin-bottom: 40px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--panel-line);
+  }
+
+  .kicker {
+    color: var(--pitch);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+
+  .date-line {
+    color: var(--ink-dim);
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .video-shell {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 44px;
+    border: 1px solid var(--panel-line);
+    display: block;
+    cursor: pointer;
+  }
+
+  .video-shell iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .video-shell img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .video-shell .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: rgba(16, 32, 26, 0.75);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+
+  .video-shell:hover .play-button {
+    background: var(--gold);
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+
+  .video-shell .play-button::after {
+    content: "";
+    border-style: solid;
+    border-width: 12px 0 12px 20px;
+    border-color: transparent transparent transparent var(--gold);
+    margin-left: 6px;
+  }
+
+  .video-shell:hover .play-button::after {
+    border-color: transparent transparent transparent var(--bg);
+  }
+
+  section {
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+    margin: 0 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h2::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--panel-line);
+  }
+
+  .highlight-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .highlight-list li {
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-left: 3px solid var(--pitch);
+    padding: 16px 18px;
+    border-radius: 4px;
+    font-size: 15.5px;
+    color: var(--ink);
+  }
+
+  .next-meeting {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-left: 3px solid var(--gold);
+    padding: 16px 18px;
+    border-radius: 4px;
+    font-size: 15.5px;
+  }
+
+  .next-meeting .label {
+    color: var(--ink-dim);
+    font-size: 13px;
+  }
+
+  .owner-block {
+    margin-bottom: 24px;
+  }
+
+  .owner-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 10px;
+  }
+
+  .action-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .action-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--ink);
+    cursor: pointer;
+    user-select: none;
+    padding: 4px 6px;
+    margin: -4px -6px;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+  }
+
+  .action-list li:hover {
+    background: rgba(255,255,255,0.03);
+  }
+
+  .checkbox {
+    position: relative;
+    flex: none;
+    width: 17px;
+    height: 17px;
+    margin-top: 3px;
+    border: 1.5px solid var(--pitch);
+    border-radius: 4px;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .action-list li.checked .checkbox {
+    background: var(--pitch);
+    border-color: var(--pitch);
+  }
+
+  .checkbox::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid var(--bg);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+  }
+
+  .action-list li.checked .checkbox::after {
+    opacity: 1;
+  }
+
+  .action-list li.checked .action-text {
+    color: var(--ink-dim);
+    text-decoration: line-through;
+  }
+
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--panel-line);
+    color: var(--ink-dim);
+    font-size: 13px;
+  }
+
+  .video-link {
+    margin: -32px 0 44px;
+    font-size: 13px;
+  }
+
+  .video-link a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .video-link a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="kicker">熱狂セッションログ</p>
+    <h1>兼田さん セッション 9/23</h1>
+    <p class="date-line">2026年9月23日(水) 19:06〜19:56 · 兼田様</p>
+  </header>
+
+  <div class="video-shell" id="video-shell" onclick="playVideo()">
+    <img src="https://img.youtube.com/vi/L19g8rst7DQ/maxresdefault.jpg" alt="兼田さん セッション 9/23" onerror="this.src='https://img.youtube.com/vi/L19g8rst7DQ/hqdefault.jpg'">
+    <span class="play-button"></span>
+  </div>
+  <p class="video-link"><a href="https://youtu.be/L19g8rst7DQ" target="_blank" rel="noopener">YouTubeで開く ↗</a></p>
+  <script>
+    function playVideo() {
+      var shell = document.getElementById('video-shell');
+      shell.removeAttribute('onclick');
+      shell.style.cursor = 'default';
+      shell.innerHTML = '<iframe src="https://www.youtube.com/embed/L19g8rst7DQ?autoplay=1" title="兼田さん セッション 9/23" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+    }
+  </script>
+
+  <section>
+    <h2>ハイライト</h2>
+    <ul class="highlight-list">
+      <li>10月ツアーの下見を実施。危険箇所を動画に残せた一方、当日使う可能性のある別コースは未確認のまま。27日の下見で穴を埋める。</li>
+      <li>犬同伴の判断ミスが発覚。参加者5名中1名が犬に恐怖を感じていたため、今回は「人のみのツアー」に方針変更。今後は申込段階で動物同伴の可否を明記する。</li>
+      <li>11月は2本立てが理想。岩湧山の第二弾と、山頂にミャクミャク像がある金剛山ツアー。集客力は高いが駐車場の問題は要検証。平日開催ニーズはストーリーで調査する。</li>
+      <li>開催案内は最低2週間前に送る。登山靴を持っていない参加者が準備する時間を確保するため。</li>
+      <li>役立つ情報系動画のネタ出し：遭難時の対応（電波あり＝通報・動かない・省電力／電波なし＝焦らない・太陽の位置・振り返る・沢に降りない）、登山靴などギア選び、山の選び方。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>次回ミーティング</h2>
+    <div class="next-meeting">
+      <span>2026年10月1日(木) 18:00〜</span>
+      <span class="label">確定</span>
+    </div>
+    <!-- 次回未定の場合はこのsection自体を削除する -->
+  </section>
+
+  <section>
+    <h2>ネクストアクション</h2>
+
+    <div class="owner-block">
+      <p class="owner-name">兼田様</p>
+      <ul class="action-list">
+        <li data-id="client-1"><span class="checkbox"></span><span class="action-text">犬同伴予定の参加者に、今回は犬の参加をお断りする旨をメールで連絡する（セッション直後）</span></li>
+        <li data-id="client-2"><span class="checkbox"></span><span class="action-text">10月ツアー参加者へ、集合時間・持ち物を含む開催案内を10月1日までに送付する</span></li>
+        <li data-id="client-3"><span class="checkbox"></span><span class="action-text">9月27日：岩湧山の別コースを下見し、自撮り棒（DJI Osmo）の練習とリール用素材撮影を行う</span></li>
+        <li data-id="client-4"><span class="checkbox"></span><span class="action-text">9月27日に撮った素材で、役立つ情報系（ノウハウ／知識系）の動画を投稿まで完了させる</span></li>
+        <li data-id="client-5"><span class="checkbox"></span><span class="action-text">今後の募集では、申込段階で動物同伴の可否を明記する</span></li>
+        <li data-id="client-6"><span class="checkbox"></span><span class="action-text">10月11日(日)、山一歩さんの登山ツアーに参加する</span></li>
+        </ul>
+    </div>
+
+    <div class="owner-block">
+      <p class="owner-name">共有事項</p>
+      <ul class="action-list">
+        <li data-id="shared-1"><span class="checkbox"></span><span class="action-text">10月1日(木)18:00のセッションで、27日の下見・投稿の結果を振り返る</span></li>
+        </ul>
+    </div>
+  </section>
+
+  <footer>
+    熱狂セッションログ · ActGrit · 2026年9月23日実施分
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'session-recap-checks:' + document.title;
+  var state = {};
+  try {
+    state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  } catch (e) {}
+
+  var items = document.querySelectorAll('.action-list li[data-id]');
+  items.forEach(function (li) {
+    var id = li.getAttribute('data-id');
+    if (state[id]) li.classList.add('checked');
+    li.addEventListener('click', function () {
+      li.classList.toggle('checked');
+      state[id] = li.classList.contains('checked');
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>
