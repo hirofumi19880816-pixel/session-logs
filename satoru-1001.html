@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>慧さん セッション 10/1</title>
+<style>
+  :root {
+    --bg: #10201a;
+    --panel: #17281f;
+    --panel-line: #2a3c30;
+    --ink: #f1ede2;
+    --ink-dim: #b9c4ba;
+    --gold: #c9a227;
+    --pitch: #4a7856;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  header {
+    margin-bottom: 40px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--panel-line);
+  }
+
+  .kicker {
+    color: var(--pitch);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+
+  .date-line {
+    color: var(--ink-dim);
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .video-shell {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 44px;
+    border: 1px solid var(--panel-line);
+    display: block;
+    cursor: pointer;
+  }
+
+  .video-shell iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .video-shell img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .video-shell .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: rgba(16, 32, 26, 0.75);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+
+  .video-shell:hover .play-button {
+    background: var(--gold);
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+
+  .video-shell .play-button::after {
+    content: "";
+    border-style: solid;
+    border-width: 12px 0 12px 20px;
+    border-color: transparent transparent transparent var(--gold);
+    margin-left: 6px;
+  }
+
+  .video-shell:hover .play-button::after {
+    border-color: transparent transparent transparent var(--bg);
+  }
+
+  section {
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+    margin: 0 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h2::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--panel-line);
+  }
+
+  .highlight-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .highlight-list li {
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-left: 3px solid var(--pitch);
+    padding: 16px 18px;
+    border-radius: 4px;
+    font-size: 15.5px;
+    color: var(--ink);
+  }
+
+  .next-meeting {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-left: 3px solid var(--gold);
+    padding: 16px 18px;
+    border-radius: 4px;
+    font-size: 15.5px;
+  }
+
+  .next-meeting .label {
+    color: var(--ink-dim);
+    font-size: 13px;
+  }
+
+  .owner-block {
+    margin-bottom: 24px;
+  }
+
+  .owner-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 10px;
+  }
+
+  .action-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .action-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--ink);
+    cursor: pointer;
+    user-select: none;
+    padding: 4px 6px;
+    margin: -4px -6px;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+  }
+
+  .action-list li:hover {
+    background: rgba(255,255,255,0.03);
+  }
+
+  .checkbox {
+    position: relative;
+    flex: none;
+    width: 17px;
+    height: 17px;
+    margin-top: 3px;
+    border: 1.5px solid var(--pitch);
+    border-radius: 4px;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .action-list li.checked .checkbox {
+    background: var(--pitch);
+    border-color: var(--pitch);
+  }
+
+  .checkbox::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid var(--bg);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+  }
+
+  .action-list li.checked .checkbox::after {
+    opacity: 1;
+  }
+
+  .action-list li.checked .action-text {
+    color: var(--ink-dim);
+    text-decoration: line-through;
+  }
+
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--panel-line);
+    color: var(--ink-dim);
+    font-size: 13px;
+  }
+
+  .video-link {
+    margin: -32px 0 44px;
+    font-size: 13px;
+  }
+
+  .video-link a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .video-link a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="kicker">熱狂セッションログ</p>
+    <h1>慧さん セッション 10/1</h1>
+    <p class="date-line">2026年10月1日(木) 20:00〜20:30 · 慧様</p>
+  </header>
+
+  <div class="video-shell" id="video-shell" onclick="playVideo()">
+    <img src="https://img.youtube.com/vi/R46a1Fil8Oc/maxresdefault.jpg" alt="慧さん セッション 10/1" onerror="this.src='https://img.youtube.com/vi/R46a1Fil8Oc/hqdefault.jpg'">
+    <span class="play-button"></span>
+  </div>
+  <p class="video-link"><a href="https://youtu.be/R46a1Fil8Oc" target="_blank" rel="noopener">YouTubeで開く ↗</a></p>
+  <script>
+    function playVideo() {
+      var shell = document.getElementById('video-shell');
+      shell.removeAttribute('onclick');
+      shell.style.cursor = 'default';
+      shell.innerHTML = '<iframe src="https://www.youtube.com/embed/R46a1Fil8Oc?autoplay=1" title="慧さん セッション 10/1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+    }
+  </script>
+
+  <section>
+    <h2>ハイライト</h2>
+    <ul class="highlight-list">
+      <li>新しい職場での初日を終えた。建築・土木分野の基礎知識を学ぶ座学からスタート。同期は6名で、配属は翌日〜翌週の見込み。</li>
+      <li>9月の振り返り(自己採点8点):教員からの転換期で多忙な中、営業のアポ・商談の数をこなし、初めてのクローザーで1件成約。目の前のことに取り組める環境を作れたことがGood。一方で余白がなく、振り返りやデトックスの時間が取れなかった。このまま突っ走ると、時間やメンタルの面でどこかで壁に当たるという感覚がある。</li>
+      <li>10月のテーマは「持続可能な走り方」。今のペースは3ヶ月は持つが、その先は続かない。スマホに触らない時間をつくる、体を動かすなど、自分に合うリフレッシュ方法を見つける。進め方は「すべてに期限を決めて先手を打つ」「100点を目指すが100点にはこだわらず、60〜70点でもまずやってみる」。</li>
+      <li>ロールモデルを見つける。成果を出している人のやり方をまず徹底的に真似ることが、再現性への最短ルート。営業代行では木戸さんがその存在。新しい職場では、これから社内で探していく。</li>
+      <li>ゴールから逆算する。会社・部署のゴール(定量目標やKPI)を最初に把握し、現在地との差分から個人のゴールを決める。同じ「挨拶」でも、ゴールを握っているかどうかで意味が変わる。当面の指標は「3ヶ月以内(年内)に1件成約=ボーナス」。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>次回ミーティング</h2>
+    <div class="next-meeting">
+      <span>2026年10月8日(木) 21:00〜</span>
+      <span class="label">確定</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>ネクストアクション</h2>
+
+    <div class="owner-block">
+      <p class="owner-name">慧様</p>
+      <ul class="action-list">
+        <li data-id="client-1"><span class="checkbox"></span><span class="action-text">営業代行:10月中に、自分で取ったアポから一次・二次商談まで自分で担当し、2件成約する</span></li>
+        <li data-id="client-2"><span class="checkbox"></span><span class="action-text">配属後、部署メンバー全員に個別で挨拶し、一人ひとりと1対1の時間をつくる</span></li>
+        <li data-id="client-3"><span class="checkbox"></span><span class="action-text">会社・部署のゴール(定量目標やKPI)をできるだけ早く把握する</span></li>
+        <li data-id="client-4"><span class="checkbox"></span><span class="action-text">社内でロールモデルになる人を探す</span></li>
+        <li data-id="client-5"><span class="checkbox"></span><span class="action-text">10月の予定を把握し、新しい生活のリズムをつくる</span></li>
+        <li data-id="client-6"><span class="checkbox"></span><span class="action-text">生活基盤を整える(洗濯機は10/7到着予定。それまでに必要なものを揃える)</span></li>
+        <li data-id="client-7"><span class="checkbox"></span><span class="action-text">リフレッシュ方法を試す(スマホに一切触らない時間をつくる/体を動かす)</span></li>
+      </ul>
+    </div>
+
+    <div class="owner-block">
+      <p class="owner-name">共有事項</p>
+      <ul class="action-list">
+        <li data-id="shared-1"><span class="checkbox"></span><span class="action-text">月4回プランで継続。志村から請求書と決済リンクを送付する</span></li>
+        <li data-id="shared-2"><span class="checkbox"></span><span class="action-text">都内で対面の機会をつくる(トレーニング・食事)</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    熱狂セッションログ · ActGrit · 2026年10月1日実施分
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'session-recap-checks:' + document.title;
+  var state = {};
+  try {
+    state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  } catch (e) {}
+
+  var items = document.querySelectorAll('.action-list li[data-id]');
+  items.forEach(function (li) {
+    var id = li.getAttribute('data-id');
+    if (state[id]) li.classList.add('checked');
+    li.addEventListener('click', function () {
+      li.classList.toggle('checked');
+      state[id] = li.classList.contains('checked');
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>
