@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>翔さん セッション 10/7</title>
+<style>
+  :root {
+    --bg: #10201a;
+    --panel: #17281f;
+    --panel-line: #2a3c30;
+    --ink: #f1ede2;
+    --ink-dim: #b9c4ba;
+    --gold: #c9a227;
+    --pitch: #4a7856;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  header {
+    margin-bottom: 40px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--panel-line);
+  }
+
+  .kicker {
+    color: var(--pitch);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+
+  .date-line {
+    color: var(--ink-dim);
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .video-shell {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 44px;
+    border: 1px solid var(--panel-line);
+    display: block;
+    cursor: pointer;
+  }
+
+  .video-shell iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .video-shell img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .video-shell .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: rgba(16, 32, 26, 0.75);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+
+  .video-shell:hover .play-button {
+    background: var(--gold);
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+
+  .video-shell .play-button::after {
+    content: "";
+    border-style: solid;
+    border-width: 12px 0 12px 20px;
+    border-color: transparent transparent transparent var(--gold);
+    margin-left: 6px;
+  }
+
+  .video-shell:hover .play-button::after {
+    border-color: transparent transparent transparent var(--bg);
+  }
+
+  section {
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+    margin: 0 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h2::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--panel-line);
+  }
+
+  .highlight-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .highlight-list li {
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-left: 3px solid var(--pitch);
+    padding: 16px 18px;
+    border-radius: 4px;
+    font-size: 15.5px;
+    color: var(--ink);
+  }
+
+  .next-meeting {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-left: 3px solid var(--gold);
+    padding: 16px 18px;
+    border-radius: 4px;
+    font-size: 15.5px;
+  }
+
+  .next-meeting .label {
+    color: var(--ink-dim);
+    font-size: 13px;
+  }
+
+  .owner-block {
+    margin-bottom: 24px;
+  }
+
+  .owner-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 10px;
+  }
+
+  .action-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .action-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--ink);
+    cursor: pointer;
+    user-select: none;
+    padding: 4px 6px;
+    margin: -4px -6px;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+  }
+
+  .action-list li:hover {
+    background: rgba(255,255,255,0.03);
+  }
+
+  .checkbox {
+    position: relative;
+    flex: none;
+    width: 17px;
+    height: 17px;
+    margin-top: 3px;
+    border: 1.5px solid var(--pitch);
+    border-radius: 4px;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .action-list li.checked .checkbox {
+    background: var(--pitch);
+    border-color: var(--pitch);
+  }
+
+  .checkbox::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid var(--bg);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+  }
+
+  .action-list li.checked .checkbox::after {
+    opacity: 1;
+  }
+
+  .action-list li.checked .action-text {
+    color: var(--ink-dim);
+    text-decoration: line-through;
+  }
+
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--panel-line);
+    color: var(--ink-dim);
+    font-size: 13px;
+  }
+
+  .video-link {
+    margin: -32px 0 44px;
+    font-size: 13px;
+  }
+
+  .video-link a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .video-link a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="kicker">熱狂セッションログ</p>
+    <h1>翔さん セッション 10/7</h1>
+    <p class="date-line">2026年10月7日(水) 11:01〜12:00 · 翔さん</p>
+  </header>
+
+  <div class="video-shell" id="video-shell" onclick="playVideo()">
+    <img src="https://img.youtube.com/vi/x2vf3SrRawM/maxresdefault.jpg" alt="翔さん セッション 10/7" onerror="this.src='https://img.youtube.com/vi/x2vf3SrRawM/hqdefault.jpg'">
+    <span class="play-button"></span>
+  </div>
+  <p class="video-link"><a href="https://youtu.be/x2vf3SrRawM" target="_blank" rel="noopener">YouTubeで開く ↗</a></p>
+  <script>
+    function playVideo() {
+      var shell = document.getElementById('video-shell');
+      shell.removeAttribute('onclick');
+      shell.style.cursor = 'default';
+      shell.innerHTML = '<iframe src="https://www.youtube.com/embed/x2vf3SrRawM?autoplay=1" title="翔さん セッション 10/7" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+    }
+  </script>
+
+  <section>
+    <h2>ハイライト</h2>
+    <ul class="highlight-list">
+      <li>9月27日の団体戦は全勝で優勝。強打で押し切るのではなく、ロブや緩急を使った低出力中心の戦い方を試し、これまで勝率の悪かった会場でも結果を出した。自己評価は10点満点中6点。練習量は確保しきれなかったが、雨の合間の短い時間を使って大会に間に合わせた。</li>
+      <li>同じ低出力でも、勝てた試合と勝てなかった試合がある。違いは、自分でローに「した」のか、ローに「なってしまった」のか。ペースが速いか遅いかではなく、自分で選んでそのペースにしているかどうかが分かれ目になる。</li>
+      <li>「攻め」を捉え直した。攻めとは強打のことではなく、主導権を握っている状態のこと。翔さん自身の定義は「手札をちゃんと見て、選べる状態」。分析力と戦略を組み立てる力は翔さんの強みで、手札を選べている時に最も活きる。</li>
+      <li>「受けると決めている」のと「受けに回されている」のは別物。回されていると気づいた時は、無理にでも攻めのカードを切る選択肢を持っておく。同じ失点でも相手に残る印象が変わり、主導権を取り返す材料になる。あわせて、判断のミスと技術のミスは分けて振り返る。</li>
+      <li>対戦相手を事前に調べるかどうかは、どちらでも結果が出てきた経緯があり、勝敗を左右する要因ではない。基準は、自分が主導権を握りやすい状態でいられるかどうか。会場での待ち時間も含めて「いつも通り」でいられる過ごし方を選ぶ。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>次回ミーティング</h2>
+    <div class="next-meeting">
+      <span>2026年10月26日(月) 12:00〜</span>
+      <span class="label">Zoom</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>ネクストアクション</h2>
+
+    <div class="owner-block">
+      <p class="owner-name">翔さん</p>
+      <ul class="action-list">
+        <li data-id="client-1"><span class="checkbox"></span><span class="action-text">次回(10月26日)までに、試合前日の夜から試合開始までの過ごし方を具体的に書き出す。どんな行動をして、どんな状態でいるかまでイメージする</span></li>
+        <li data-id="client-2"><span class="checkbox"></span><span class="action-text">全日本クラブ選手権で「主導権を握る=攻め」「手札を選べる状態」という捉え方を試す</span></li>
+        <li data-id="client-3"><span class="checkbox"></span><span class="action-text">新しいラケットを全日本クラブ選手権で試し、天皇杯に向けて調整する</span></li>
+      </ul>
+    </div>
+
+    <div class="owner-block">
+      <p class="owner-name">共有事項</p>
+      <ul class="action-list">
+        <li data-id="shared-1"><span class="checkbox"></span><span class="action-text">次回は、全日本クラブ選手権の振り返りと、天皇杯までの残り2週間の過ごし方を扱う</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    熱狂セッションログ · ActGrit · 2026年10月7日実施分
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'session-recap-checks:' + document.title;
+  var state = {};
+  try {
+    state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  } catch (e) {}
+
+  var items = document.querySelectorAll('.action-list li[data-id]');
+  items.forEach(function (li) {
+    var id = li.getAttribute('data-id');
+    if (state[id]) li.classList.add('checked');
+    li.addEventListener('click', function () {
+      li.classList.toggle('checked');
+      state[id] = li.classList.contains('checked');
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>
