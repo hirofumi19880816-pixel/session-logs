@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>弘毅 卒業セッション</title>
+<style>
+  :root {
+    --bg: #10201a;
+    --panel: #17281f;
+    --panel-line: #2a3c30;
+    --ink: #f1ede2;
+    --ink-dim: #b9c4ba;
+    --gold: #c9a227;
+    --pitch: #4a7856;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  header {
+    margin-bottom: 40px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--panel-line);
+  }
+
+  .kicker {
+    color: var(--pitch);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+
+  .date-line {
+    color: var(--ink-dim);
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .video-shell {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 44px;
+    border: 1px solid var(--panel-line);
+    display: block;
+    cursor: pointer;
+  }
+
+  .video-shell iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .video-shell img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .video-shell .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: rgba(16, 32, 26, 0.75);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+
+  .video-shell:hover .play-button {
+    background: var(--gold);
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+
+  .video-shell .play-button::after {
+    content: "";
+    border-style: solid;
+    border-width: 12px 0 12px 20px;
+    border-color: transparent transparent transparent var(--gold);
+    margin-left: 6px;
+  }
+
+  .video-shell:hover .play-button::after {
+    border-color: transparent transparent transparent var(--bg);
+  }
+
+  section {
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+    margin: 0 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h2::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--panel-line);
+  }
+
+  .highlight-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .highlight-list li {
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-left: 3px solid var(--pitch);
+    padding: 16px 18px;
+    border-radius: 4px;
+    font-size: 15.5px;
+    color: var(--ink);
+  }
+
+  .next-meeting {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-left: 3px solid var(--gold);
+    padding: 16px 18px;
+    border-radius: 4px;
+    font-size: 15.5px;
+  }
+
+  .next-meeting .label {
+    color: var(--ink-dim);
+    font-size: 13px;
+  }
+
+  .owner-block {
+    margin-bottom: 24px;
+  }
+
+  .owner-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 10px;
+  }
+
+  .action-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .action-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--ink);
+    cursor: pointer;
+    user-select: none;
+    padding: 4px 6px;
+    margin: -4px -6px;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+  }
+
+  .action-list li:hover {
+    background: rgba(255,255,255,0.03);
+  }
+
+  .checkbox {
+    position: relative;
+    flex: none;
+    width: 17px;
+    height: 17px;
+    margin-top: 3px;
+    border: 1.5px solid var(--pitch);
+    border-radius: 4px;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .action-list li.checked .checkbox {
+    background: var(--pitch);
+    border-color: var(--pitch);
+  }
+
+  .checkbox::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid var(--bg);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+  }
+
+  .action-list li.checked .checkbox::after {
+    opacity: 1;
+  }
+
+  .action-list li.checked .action-text {
+    color: var(--ink-dim);
+    text-decoration: line-through;
+  }
+
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--panel-line);
+    color: var(--ink-dim);
+    font-size: 13px;
+  }
+
+  .video-link {
+    margin: -32px 0 44px;
+    font-size: 13px;
+  }
+
+  .video-link a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .video-link a:hover {
+    text-decoration: underline;
+  }
+  .yell {
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-left: 3px solid var(--gold);
+    padding: 22px 22px 18px;
+    border-radius: 4px;
+    font-size: 15.5px;
+    color: var(--ink);
+  }
+
+  .yell p {
+    margin: 0 0 14px;
+  }
+
+  .yell .yell-sign {
+    margin: 20px 0 0;
+    text-align: right;
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="kicker">熱狂セッションログ</p>
+    <h1>弘毅 卒業セッション</h1>
+    <p class="date-line">2026年10月27日(火) 11:00〜12:11 · 弘毅様</p>
+  </header>
+
+  <div class="video-shell" id="video-shell" onclick="playVideo()">
+    <img src="https://img.youtube.com/vi/KF_lBkWO_AA/maxresdefault.jpg" alt="弘毅 卒業セッション" onerror="this.src='https://img.youtube.com/vi/KF_lBkWO_AA/hqdefault.jpg'">
+    <span class="play-button"></span>
+  </div>
+  <p class="video-link"><a href="https://youtu.be/KF_lBkWO_AA" target="_blank" rel="noopener">YouTubeで開く ↗</a></p>
+  <script>
+    function playVideo() {
+      var shell = document.getElementById('video-shell');
+      shell.removeAttribute('onclick');
+      shell.style.cursor = 'default';
+      shell.innerHTML = '<iframe src="https://www.youtube.com/embed/KF_lBkWO_AA?autoplay=1" title="弘毅 卒業セッション" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+    }
+  </script>
+
+  <section>
+    <h2>ハイライト</h2>
+    <ul class="highlight-list">
+      <li>後期の自己採点は<strong>9点</strong>。中学校での授業登壇の実現、奥さんとの関係にもう一歩踏み込めたこと、スクールで「この子たちが自分のクラブに来たらどう関わるか」という視点で指導に立てるようになったこと。気持ちではなく、事実ベースで変化を獲得した期間だった。モアは、サッカーの発信が止まっていたこと。</li>
+      <li>「流れに乗る」か「期日を決めて自分でグリップする」か。山梨の授業登壇が実現したのは、あゆみさんがグリップし、期日が決まったから。これを自分の手でできるようになるのが次のステージ。講話は流れに沿う、クラブ設立は期日にコミットする――領域ごとに選んでいい。</li>
+      <li>2028年4月のクラブ設立から逆算した流れを確認。12月ワンデースクール → 2027年4月 中学生クラス開始 → 5〜6月 セレクション・メンバー募集 → 9〜10月 二次募集・練習体験 → 11〜12月 説明会。初期メンバー14名、スタッフは自分＋任せられる経験者1名がイメージ。</li>
+      <li>10月のワンデースクールは実施できなかった。「天気だから仕方ない」で終わると、体育館・雨天メニュー・オンラインといったB案・C案は出てこない。成長してプラス側にいる人ほど、無意識に自分の可能性に蓋をしやすく、しかも気づきにくい。「分からない」「仕方ない」を使った瞬間、解決の思考は止まる。</li>
+      <li>本質的なBeは、頭で理解するだけでは書き換わらない。Doして現実（Have）を獲得したとき、気づけば変わってしまっている。新しいコミュニティでの学びも、インプットで終わらせず現実に変換してこそ意味を持つ。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>ネクストアクション</h2>
+
+    <div class="owner-block">
+      <p class="owner-name">弘毅様</p>
+      <ul class="action-list">
+        <li data-id="client-1"><span class="checkbox"></span><span class="action-text">中学生からDMで届いた質問に手書きで返信し、10/30（金）までに返しきる</span></li>
+        <li data-id="client-2"><span class="checkbox"></span><span class="action-text">11/1（日）21時にInstagramのリール動画を1本投稿する</span></li>
+        <li data-id="client-3"><span class="checkbox"></span><span class="action-text">10月のワンデースクールが実施できなかった要因（天気など）を洗い出し、12月開催に向けたB案・C案を含む解決策を11/3（火・文化の日）までにシェアする（未完成でもOK）</span></li>
+        <li data-id="client-4"><span class="checkbox"></span><span class="action-text">2028年4月のクラブ設立に向けたタイムスケジュール（中学生クラス・ワンデースクール・セレクション・説明会など）を、自分の中で改めて落とし込む</span></li>
+        <li data-id="client-5"><span class="checkbox"></span><span class="action-text">コーチングコミュニティでの10ヶ月の学びに集中し、学んだことを現実に変換し続ける</span></li>
+      </ul>
+    </div>
+
+    <div class="owner-block">
+      <p class="owner-name">共有事項</p>
+      <ul class="action-list">
+        <li data-id="shared-1"><span class="checkbox"></span><span class="action-text">2〜3ヶ月に一度、オンラインまたはオフラインで現状報告（いきざま報告会）</span></li>
+        <li data-id="shared-2"><span class="checkbox"></span><span class="action-text">12月末頃、忘年会を兼ねてオフラインで会う</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>卒業に寄せて</h2>
+    <div class="yell">
+      <p>弘毅へ</p>
+      <p>この1年、本当によく走り抜けたね。</p>
+      <p>熱狂のサポートを始める時は、奥さんのこと、お金のこと――条件が揃うのを待って、めちゃくちゃ悩んでいた。それが今回は、その場で「10ヶ月学びます」と決めて申し込んだ。条件が整うのを待つ側から、先に決めて現実を動かす側へ。これがこの1年で弘毅が獲得した、一番大きな変化だと思ってる。</p>
+      <p>期日を切ること。自分でグリップすること。「仕方ない」で思考を止めないこと。これを自分のものにした弘毅なら、下手な選手を上手くするだけじゃなく、上手い選手をさらに上手くする指導者に間違いなくなれる。</p>
+      <p>2028年4月、クラブが立ち上がって、子どもたちと保護者の前に立つ弘毅の姿を見られるのを本気で楽しみにしています。僕も12月から新しい挑戦を始めます。お互い生き様をつくって、また報告し合おう。</p>
+      <p>卒業おめでとう。これからの活躍を、心から期待しています。</p>
+      <p class="yell-sign">志村啓文（シム）</p>
+    </div>
+  </section>
+
+  <footer>
+    熱狂セッションログ · ActGrit · 2026年10月27日実施分
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'session-recap-checks:' + document.title;
+  var state = {};
+  try {
+    state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  } catch (e) {}
+
+  var items = document.querySelectorAll('.action-list li[data-id]');
+  items.forEach(function (li) {
+    var id = li.getAttribute('data-id');
+    if (state[id]) li.classList.add('checked');
+    li.addEventListener('click', function () {
+      li.classList.toggle('checked');
+      state[id] = li.classList.contains('checked');
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>
