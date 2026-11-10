@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>いなさん 1on1 11/3</title>
+<style>
+  :root {
+    --bg: #10201a;
+    --panel: #17281f;
+    --panel-line: #2a3c30;
+    --ink: #f1ede2;
+    --ink-dim: #b9c4ba;
+    --gold: #c9a227;
+    --pitch: #4a7856;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  header {
+    margin-bottom: 40px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--panel-line);
+  }
+
+  .kicker {
+    color: var(--pitch);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+
+  .date-line {
+    color: var(--ink-dim);
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .video-shell {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 44px;
+    border: 1px solid var(--panel-line);
+    display: block;
+    cursor: pointer;
+  }
+
+  .video-shell iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .video-shell img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .video-shell .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: rgba(16, 32, 26, 0.75);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+
+  .video-shell:hover .play-button {
+    background: var(--gold);
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+
+  .video-shell .play-button::after {
+    content: "";
+    border-style: solid;
+    border-width: 12px 0 12px 20px;
+    border-color: transparent transparent transparent var(--gold);
+    margin-left: 6px;
+  }
+
+  .video-shell:hover .play-button::after {
+    border-color: transparent transparent transparent var(--bg);
+  }
+
+  section {
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+    margin: 0 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h2::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--panel-line);
+  }
+
+  .highlight-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .highlight-list li {
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-left: 3px solid var(--pitch);
+    padding: 16px 18px;
+    border-radius: 4px;
+    font-size: 15.5px;
+    color: var(--ink);
+  }
+
+  .next-meeting {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-left: 3px solid var(--gold);
+    padding: 16px 18px;
+    border-radius: 4px;
+    font-size: 15.5px;
+  }
+
+  .next-meeting .label {
+    color: var(--ink-dim);
+    font-size: 13px;
+  }
+
+  .owner-block {
+    margin-bottom: 24px;
+  }
+
+  .owner-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 10px;
+  }
+
+  .action-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .action-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--ink);
+    cursor: pointer;
+    user-select: none;
+    padding: 4px 6px;
+    margin: -4px -6px;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+  }
+
+  .action-list li:hover {
+    background: rgba(255,255,255,0.03);
+  }
+
+  .checkbox {
+    position: relative;
+    flex: none;
+    width: 17px;
+    height: 17px;
+    margin-top: 3px;
+    border: 1.5px solid var(--pitch);
+    border-radius: 4px;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .action-list li.checked .checkbox {
+    background: var(--pitch);
+    border-color: var(--pitch);
+  }
+
+  .checkbox::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid var(--bg);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+  }
+
+  .action-list li.checked .checkbox::after {
+    opacity: 1;
+  }
+
+  .action-list li.checked .action-text {
+    color: var(--ink-dim);
+    text-decoration: line-through;
+  }
+
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--panel-line);
+    color: var(--ink-dim);
+    font-size: 13px;
+  }
+
+  .video-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    margin: 0 0 10px;
+  }
+
+  .video-link {
+    margin: -32px 0 44px;
+    font-size: 13px;
+  }
+
+  .video-link a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .video-link a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="kicker">熱狂セッションログ</p>
+    <h1>いなさん 1on1 11/3</h1>
+    <p class="date-line">2026年11月3日(火・祝) 14:59〜16:35 · 稲谷優人さん</p>
+  </header>
+
+  <p class="video-label">前半</p>
+  <div class="video-shell" id="video-shell-1" onclick="playVideo('video-shell-1','mBep9CDbYT0')">
+    <img src="https://img.youtube.com/vi/mBep9CDbYT0/maxresdefault.jpg" alt="前半" onerror="this.src='https://img.youtube.com/vi/mBep9CDbYT0/hqdefault.jpg'">
+    <span class="play-button"></span>
+  </div>
+  <p class="video-link"><a href="https://youtu.be/mBep9CDbYT0" target="_blank" rel="noopener">YouTubeで開く ↗</a></p>
+  <p class="video-label">後半(通信切断後の再開分)</p>
+  <div class="video-shell" id="video-shell-2" onclick="playVideo('video-shell-2','rSY3hNWdkCM')">
+    <img src="https://img.youtube.com/vi/rSY3hNWdkCM/maxresdefault.jpg" alt="後半(通信切断後の再開分)" onerror="this.src='https://img.youtube.com/vi/rSY3hNWdkCM/hqdefault.jpg'">
+    <span class="play-button"></span>
+  </div>
+  <p class="video-link"><a href="https://youtu.be/rSY3hNWdkCM" target="_blank" rel="noopener">YouTubeで開く ↗</a></p>
+  <script>
+    function playVideo(shellId, vid) {
+      var shell = document.getElementById(shellId);
+      shell.removeAttribute('onclick');
+      shell.style.cursor = 'default';
+      shell.innerHTML = '<iframe src="https://www.youtube.com/embed/' + vid + '?autoplay=1" title="いなさん 1on1 11/3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+    }
+  </script>
+
+  <section>
+    <h2>ハイライト</h2>
+    <ul class="highlight-list">
+      <li>現在地の確認。救助の仕事にはやりがいも誇りもある。一方で30代半ばを迎え、このまま定年まで同じ道を進むことに疑問が出てきている。転職・独立(居酒屋など)も頭にあるが、まだ決断には至っていない。</li>
+      <li>「辞めたい」を理由に辞めると、辞めた後にまたガス欠になる。目的地(人生のゴール)が決まらない限り、最適な手段も、辞める時期も決まらない。</li>
+      <li>憧れか、本物の欲求か。救助の花形ポジションに「憧れていた」のなら、そのポジションを離れた瞬間に価値は消える。「人を守りたい」が本物なら、手段が変わっても消えない。この2つを切り分けることが出発点。</li>
+      <li>強みとブレーキは同じ根っこ。「決めたことをやり抜く」力が、同時に「やめてはいけない」「続けるべき」という信念となって変化を止めている。これまでの自分を支えてきたものだからこそ、手放すのは怖い。</li>
+      <li>順序は、自己理解(能力・スキル/信念・価値観)→ゴール設定→ゴールに不要な信念を手放す。地図と目的地だけ渡されても、自分を知らなければそこへは向かえない。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>次回ミーティング</h2>
+    <div class="next-meeting">
+      <span>日程調整中</span>
+      <span class="label">いなさんからDMで候補日をお送りいただく</span>
+    </div>
+    <!-- 次回未定の場合はこのsection自体を削除する -->
+  </section>
+
+  <section>
+    <h2>ネクストアクション</h2>
+
+    <div class="owner-block">
+      <p class="owner-name">いなさん</p>
+      <ul class="action-list">
+        <li data-id="client-1"><span class="checkbox"></span><span class="action-text">次回面談の候補日を志村にDMで送る</span></li>
+        <li data-id="client-2"><span class="checkbox"></span><span class="action-text">【持ち帰る問い】救助のポジションへの「憧れ」と、「人を守りたい」という欲求。自分を動かしてきたのはどちらか</span></li>
+        <li data-id="client-3"><span class="checkbox"></span><span class="action-text">【持ち帰る問い】「やめてはいけない」「やり抜くべき」は、本当に自分が望んでいることか。それとも、これまでの自分を守るための信念か</span></li>
+      </ul>
+    </div>
+
+    <div class="owner-block">
+      <p class="owner-name">志村より</p>
+      <ul class="action-list">
+        <li data-id="shared-1"><span class="checkbox"></span><span class="action-text">次回、コーチング支援の具体的な内容をご紹介する</span></li>
+        <!-- 共有事項がなければこのowner-block自体を削除する -->
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    熱狂セッションログ · ActGrit · 2026年11月3日実施分
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'session-recap-checks:' + document.title;
+  var state = {};
+  try {
+    state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  } catch (e) {}
+
+  var items = document.querySelectorAll('.action-list li[data-id]');
+  items.forEach(function (li) {
+    var id = li.getAttribute('data-id');
+    if (state[id]) li.classList.add('checked');
+    li.addEventListener('click', function () {
+      li.classList.toggle('checked');
+      state[id] = li.classList.contains('checked');
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>
